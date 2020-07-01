@@ -5,10 +5,9 @@ import (
 )
 
 func Decrypt(msg int64, priKey PrivateKey, pubKey PublicKey) int64 {
-	m := (priKey.P - 1) * (priKey.Q - 1)
-	aBig := big.NewInt(int64(pubKey.A))
-	mBig := big.NewInt(int64(m))
-	nBig := big.NewInt(int64(pubKey.N))
+	mBig := mul(sub(priKey.P, big.NewInt(1)), sub(priKey.Q, big.NewInt(1)))
+	aBig := pubKey.A
+	nBig := pubKey.N
 
 	b := modInverse(aBig, mBig)
 	msgBig := big.NewInt(msg)

@@ -1,21 +1,19 @@
 package rsa
 
-import (
-	"math/big"
-)
+import "math/big"
 
-func Encrypt(msg int, pubKey PublicKey) int64 {
-	msgBig := big.NewInt(int64(msg))
-	aBig := big.NewInt(int64(pubKey.A))
+func Encrypt(msg int64, pubKey PublicKey) int64 {
+	msgBig := big.NewInt(msg)
+	aBig := pubKey.A
 	xA := xor(msgBig, aBig)
-	res := mod(xA, big.NewInt(int64(pubKey.N)))
+	res := mod(xA, pubKey.N)
 	return res.Int64()
 }
 
 func EncryptBytes(msg []byte, pubKey PublicKey) []byte {
 	encrypted := make([]byte, len(msg))
 	for k, v := range msg {
-		encr := Encrypt(int(v), pubKey)
+		encr := Encrypt(int64(v), pubKey)
 		encrypted[k] = byte(encr)
 	}
 	return encrypted
