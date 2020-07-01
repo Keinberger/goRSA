@@ -1,7 +1,6 @@
 package rsa
 
 import (
-	"fmt"
 	"math"
 	"math/big"
 	"math/rand"
@@ -68,7 +67,6 @@ func GetPublicKey(key PrivateKey) PublicKey {
 		aa = GeneratePrime(minimum, maximum)
 		inv = modInverse(aa, big.NewInt(int64(m))).Int64()
 	}
-	fmt.Println(modInverse(aa, big.NewInt(int64(m))).Int64())
 	return PublicKey{
 		N: mul(key.P, key.Q),
 		A: aa,
