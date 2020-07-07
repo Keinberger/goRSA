@@ -44,7 +44,8 @@ The package also supports the encryption/decryption of byte-slices (strings).
 
 Here's how to use that:
 
-Encrypting:```
+Encrypting:
+```
 privateKey := rsa.GeneratePrivateKey()
 publicKey := rsa.GetPublicKey(privateKey)
 
@@ -52,7 +53,8 @@ stringToEncrypt := "I love RSA"
 encryptedString := string(rsa.EncryptBytes([]byte(stringToEncrypt), publicKey))
 ```
 
-Decrypting:```
+Decrypting:
+```
 decryptedString := string(rsa.DecryptBytes([]byte(encryptedString), privateKey, publicKey))
 ```
 
