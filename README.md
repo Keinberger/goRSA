@@ -62,4 +62,4 @@ The variables `stringToEncrypt` and `decryptedString`, used in this example, sho
 
 ## Important
 
-There might still be some bugs in the program.
+Numbers to encrypt shall not exceed 200, otherwise the encryption gets faulty.
