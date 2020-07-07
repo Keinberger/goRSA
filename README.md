@@ -10,10 +10,10 @@ The package contains two separe functions for generating the privateKey and publ
 
 One has to generate the privateKey before the publicKey, because the publicKey dependends on the privateKey.
 
-E.g.: `
+E.g.: ```
 privateKey := rsa.GeneratePrivateKey()
 publicKey := rsa.GeneratePublicKey(privateKey)
-`
+```
 
 ### Using the keys to encode/decode numbers
 
@@ -21,17 +21,17 @@ After having generated a key pair containing of privateKey and publicKey, you ma
 
 The package contains one function each for encrypting and decryping, both will return a variable of type int64.
 
-Encrypting a number works like that: `
+Encrypting a number works like that: ```
 privateKey := rsa.GeneratePrivateKey()
 publicKey := rsa.GetPublicKey(privateKey)
 
 var numberToEncrypt int64 = 100
 encryptedNumber := rsa.Encrypt(numberToEncrypt, publicKey)
-`
+```
 
-Decrypting the encrypted number works like that: `
+Decrypting the encrypted number works like that: ```
 decryptedNumber := rsa.Decrypt(encryptedNumber, privateKey, publicKey)
-`
+```
 
 The variables `numberToEncrypt` and `decryptedNumber`, used in this example, should be the same.
 
@@ -41,17 +41,17 @@ The package also supports the encryption/decryption of byte-slices (strings).
 
 Here's how to use that:
 
-Encrypting:`
+Encrypting:```
 privateKey := rsa.GeneratePrivateKey()
 publicKey := rsa.GetPublicKey(privateKey)
 
 stringToEncrypt := "I love RSA"
 encryptedString := string(rsa.EncryptBytes([]byte(stringToEncrypt), publicKey))
-`
+```
 
-Decrypting:`
+Decrypting:```
 decryptedString := string(rsa.DecryptBytes([]byte(encryptedString), privateKey, publicKey))
-`
+```
 
 The variables `stringToEncrypt` and `decryptedString`, used in this example, should be the same.
 
