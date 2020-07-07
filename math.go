@@ -22,6 +22,7 @@ var (
 	maximum = 41
 )
 
+// HCF calculates the highest common factor of x and y
 func HCF(x, y int) int {
 	if y == 0 {
 		return x
@@ -29,6 +30,7 @@ func HCF(x, y int) int {
 	return HCF(y, x%y)
 }
 
+// GeneratePrime generates a prime number of type big.Int between min and max
 func GeneratePrime(min, max int) *big.Int {
 	var x int
 	rand.Seed(time.Now().UnixNano())
@@ -39,6 +41,7 @@ func GeneratePrime(min, max int) *big.Int {
 	return big.NewInt(int64(x))
 }
 
+// GeneratePrivateKey returns a newly generated private Key containing two prime numbers
 func GeneratePrivateKey() PrivateKey {
 	x := GeneratePrime(minimum, maximum)
 	y := GeneratePrime(minimum, maximum)
@@ -59,6 +62,8 @@ func GeneratePrivateKey() PrivateKey {
 	}
 }
 
+// GetPublicKey returns the public Key associated to the given privateKey containing the multiplication of the two numbers inside of the private Key
+// and a newly generated prime number A, being coprime to the multiplication of the two numbers inside of the privateKey, each minus 1 ( (p-1)*(q-1) )
 func GetPublicKey(key PrivateKey) PublicKey {
 	m := int(mul(sub(key.P, big.NewInt(1)), sub(key.Q, big.NewInt(1))).Int64())
 	aa := GeneratePrime(minimum, maximum)
