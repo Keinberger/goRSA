@@ -11,7 +11,7 @@ The package contains two separe functions for generating the privateKey and publ
 One has to generate the privateKey before the publicKey, because the publicKey dependends on the privateKey.
 
 E.g.: 
-```
+```Go
 privateKey := rsa.GeneratePrivateKey()
 publicKey := rsa.GeneratePublicKey(privateKey)
 ```
@@ -23,7 +23,7 @@ After having generated a key pair containing of privateKey and publicKey, you ma
 The package contains one function each for encrypting and decryping, both will return a variable of type int64.
 
 Encrypting a number works like that: 
-```
+```Go
 privateKey := rsa.GeneratePrivateKey()
 publicKey := rsa.GetPublicKey(privateKey)
 
@@ -32,7 +32,7 @@ encryptedNumber := rsa.Encrypt(numberToEncrypt, publicKey)
 ```
 
 Decrypting the encrypted number works like that: 
-```
+```Go
 decryptedNumber := rsa.Decrypt(encryptedNumber, privateKey, publicKey)
 ```
 
@@ -45,7 +45,7 @@ The package also supports the encryption/decryption of byte-slices (strings).
 Here's how to use that:
 
 Encrypting:
-```
+```Go
 privateKey := rsa.GeneratePrivateKey()
 publicKey := rsa.GetPublicKey(privateKey)
 
@@ -54,7 +54,7 @@ encryptedString := string(rsa.EncryptBytes([]byte(stringToEncrypt), publicKey))
 ```
 
 Decrypting:
-```
+```Go
 decryptedString := string(rsa.DecryptBytes([]byte(encryptedString), privateKey, publicKey))
 ```
 
