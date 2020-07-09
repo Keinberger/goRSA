@@ -60,6 +60,26 @@ decryptedString := string(rsa.DecryptBytes([]byte(encryptedString), privateKey, 
 
 The variables `stringToEncrypt` and `decryptedString`, used in this example, should be the same.
 
+Entire code example:
+```Go
+package main
+
+import rsa "github.com/keinberger/goRSA"
+
+func main() {
+  privateKey := rsa.GeneratePrivateKey()
+  publicKey := rsa.GetPublicKey(privateKey)
+
+  var numberToEncrypt int64 = 100
+  encryptedNumber := rsa.Encrypt(numberToEncrypt, publicKey)
+  decryptedNumber := rsa.Decrypt(encryptedNumber, privateKey, publicKey)
+
+  stringToEncrypt := "I love RSA"
+  encryptedString := string(rsa.EncryptBytes([]byte(stringToEncrypt), publicKey))
+  decryptedString := string(rsa.DecryptBytes([]byte(encryptedString), privateKey, publicKey))
+}
+```
+
 ## Important
 
 Numbers to encrypt shall not exceed 200, otherwise the encryption gets faulty.
