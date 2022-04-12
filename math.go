@@ -17,7 +17,7 @@ type PublicKey struct {
 	A *big.Int
 }
 
-var (
+const (
 	minimum = 14
 	maximum = 41
 )
