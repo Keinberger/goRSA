@@ -82,4 +82,4 @@ func main() {
 
 ## Important
 
-Numbers to encrypt shall not exceed 200, otherwise the encryption gets faulty.
+Numbers to encrypt shall not exceed 319, otherwise the encryption gets faulty.

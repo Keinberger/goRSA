@@ -22,12 +22,12 @@ const (
 	maximum = 41
 )
 
-// HCF calculates the highest common factor of x and y
-func HCF(x, y int) int {
+// hcf calculates the highest common factor of x and y
+func hcf(x, y int) int {
 	if y == 0 {
 		return x
 	}
-	return HCF(y, x%y)
+	return hcf(y, x%y)
 }
 
 // GeneratePrime generates a prime number of type big.Int between min and max
@@ -35,7 +35,7 @@ func GeneratePrime(min, max int) *big.Int {
 	var x int
 	rand.Seed(time.Now().UnixNano())
 	x = rand.Intn(max-min) + min
-	for !big.NewInt(int64(x)).ProbablyPrime(0) || HCF(x, 4) != 1 || HCF(x, 6) != 1 {
+	for !big.NewInt(int64(x)).ProbablyPrime(0) || hcf(x, 4) != 1 || hcf(x, 6) != 1 {
 		x = rand.Intn(max-min) + min
 	}
 	return big.NewInt(int64(x))
@@ -64,16 +64,19 @@ func GeneratePrivateKey() PrivateKey {
 
 // GetPublicKey returns the public Key associated to the given privateKey containing the multiplication of the two numbers inside of the private Key
 // and a newly generated prime number A, being coprime to the multiplication of the two numbers inside of the privateKey, each minus 1 ( (p-1)*(q-1) )
-func GetPublicKey(key PrivateKey) PublicKey {
-	m := int(mul(sub(key.P, big.NewInt(1)), sub(key.Q, big.NewInt(1))).Int64())
-	aa := GeneratePrime(minimum, maximum)
-	inv := modInverse(aa, big.NewInt(int64(m))).Int64()
-	for HCF(m, int(aa.Int64())) != 1 || inv >= int64(maximum*2) { // if modInverse gets bigger than 2*the maximum for the generated numer, a will exceed the boundaries of big Integer
-		aa = GeneratePrime(minimum, maximum)
-		inv = modInverse(aa, big.NewInt(int64(m))).Int64()
-	}
-	return PublicKey{
+func GetPublicKey(key PrivateKey) (pubKey PublicKey) {
+	pubKey = PublicKey{
+		A: GeneratePrime(minimum, maximum),
 		N: mul(key.P, key.Q),
-		A: aa,
 	}
+
+	m := int(mul(sub(key.P, big.NewInt(1)), sub(key.Q, big.NewInt(1))).Int64())
+	inv := modInverse(pubKey.A, big.NewInt(int64(m))).Int64()
+
+	for hcf(m, int(pubKey.A.Int64())) != 1 || inv >= int64(maximum*2) { // if modInverse gets bigger than 2*the maximum for the generated numer, a will exceed the boundaries of big Integer
+		pubKey.A = GeneratePrime(minimum, maximum)
+		inv = modInverse(pubKey.A, big.NewInt(int64(m))).Int64()
+	}
+
+	return
 }
