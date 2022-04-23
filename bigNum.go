@@ -12,11 +12,6 @@ func sub(x, y *big.Int) *big.Int {
 	return big.NewInt(0).Sub(x, y)
 }
 
-// add() adds y to x and returns the result
-func add(x, y *big.Int) *big.Int {
-	return big.NewInt(0).Add(x, y)
-}
-
 // xor() returns x to the power of y
 func xor(x, y *big.Int) *big.Int {
 	return big.NewInt(0).Xor(x, y)
